@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const path = require('path')
 const mongoose = require('mongoose')
+const routes = require('./src/routes')
 
 const app = express()
 const serverPort = process.env.PORT || 3010
@@ -19,17 +20,12 @@ mongoose.connect('mongodb://localhost:27017/curso_basico_mern', {
     }
 })
 
+console.log(mongoose.version)
 app.use(cors())
 app.use(cookieParser())
 app.use(express.json())
+app.use(routes)
 
-app.get('/home', function(req, res){
-    res.json({
-                message: 'Hello World',
-                author: "Flou Ainan",
-                ajudante: "Naya Lua"
-            })
-})
 
 app.listen(serverPort, function(){
     console.log(`Server running on localhost:${serverPort}`)
